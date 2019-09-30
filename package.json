@@ -1,7 +1,7 @@
 {
   "name": "inreflection.web-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "Express RESTful APIs",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,5 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:gurfinkel/inReflection.web-api.git"
   }
 }
