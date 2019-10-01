@@ -1,8 +1,8 @@
 FROM node:10-alpine
 
-RUN mkdir -p /home/node/app && chown -R node:node /home/node/app
+RUN mkdir -p /home/node/web-api && chown -R node:node /home/node/web-api
 
-WORKDIR /home/node/app
+WORKDIR /home/node/web-api
 
 COPY package*.json ./
 
@@ -14,4 +14,4 @@ COPY --chown=node:node . .
 
 EXPOSE 8080
 
-CMD [ "node", "app.js" ]
+CMD [ "node", "src/index.js" ]
