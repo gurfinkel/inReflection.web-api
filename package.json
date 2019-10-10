@@ -9,10 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.7.3"
   },
   "repository": {
     "type": "git",
     "url": "git@github.com:gurfinkel/inReflection.web-api.git"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.3"
   }
 }

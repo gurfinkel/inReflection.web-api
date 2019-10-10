@@ -3,7 +3,7 @@ const app = express();
 
 const routes = require('./api/routes');
 
-const port = process.env.PORT || 3000;
+const port = process.env.NODE_PORT || 3000;
 
 app.use('/', routes);
 
