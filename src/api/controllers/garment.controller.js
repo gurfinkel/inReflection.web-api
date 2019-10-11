@@ -1,6 +1,10 @@
 const Garment = require('../models/garment.model');
 
-exports.create = function (req, res) {
+/**
+ * Create new garment
+ * @public
+ */
+exports.create = function (req, res, next) {
     var newGarment = new Garment(req.body);
 
     console.log(req.body);
@@ -9,17 +13,21 @@ exports.create = function (req, res) {
         if (err) {
             res.status(400).send('Unable to save garment to database');
         } else {
-            res.redirect('/garments');
+            res.json({ status: 'ok' });
         }
     });
 };
 
+/**
+ * Get garment list
+ * @public
+ */
 exports.list = function (req, res) {
     Garment.find({}).exec(function (err, garments) {
         if (err) {
             return res.send(500, err);
         }
-        //console.log(garments);
+        console.log(garments);
         res.json(garments);
     });
 };
