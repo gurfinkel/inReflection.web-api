@@ -2,16 +2,33 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 /**
- * Garment Types
+ * Look Types
  */
 const types = ['for_boys', 'for_girls'];
 
 /**
- * Garment Schema
+ * Look Schema
  * @private
  */
-const garmentSchema = new Schema({
+const lookSchema = new Schema({
     name: {
+        type: String,
+        maxlength: 128,
+        required: true,
+        trim: true,
+    },
+    ingredients: {
+        type: Array,
+        required: true,
+        default : [],
+    },
+    description: {
+        type: String,
+        maxlength: 128,
+        required: true,
+        trim: true,
+    },
+    recipe: {
         type: String,
         maxlength: 128,
         required: true,
@@ -33,10 +50,10 @@ const garmentSchema = new Schema({
 /**
  * Methods
  */
-garmentSchema.method({
+lookSchema.method({
     transform() {
         const transformed = {};
-        const fields = ['id', 'name', 'type', 'picture', 'createdAt'];
+        const fields = ['id', 'name', 'ingredients', 'description', 'recipe', 'type', 'picture', 'createdAt'];
 
         fields.forEach((field) => {
             transformed[field] = this[field];
@@ -49,13 +66,13 @@ garmentSchema.method({
 /**
  * Statics
  */
-garmentSchema.statics = {
+lookSchema.statics = {
 
     /**
-     * List garment in descending order of 'createdAt' timestamp.
+     * List look in descending order of 'createdAt' timestamp.
      *
-     * @param {number} skip - Number of garments to be skipped.
-     * @returns {Promise<Garment[]>}
+     * @param {number} skip - Number of looks to be skipped.
+     * @returns {Promise<Look[]>}
      */
     list({
              page = 1, perPage = 30, type = 'for_boys',
@@ -69,6 +86,6 @@ garmentSchema.statics = {
 };
 
 /**
- * @typedef Garment
+ * @typedef Look
  */
-module.exports = mongoose.model('Garment', garmentSchema);
+module.exports = mongoose.model('Look', lookSchema);

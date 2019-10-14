@@ -1,6 +1,5 @@
 const express = require('express');
 const db = require('./db');
-const bodyParser = require('body-parser');
 
 const routes = require('./api/routes');
 
@@ -8,8 +7,11 @@ const app = express();
 
 const port = process.env.NODE_PORT || 3000;
 
-// parse application/json
-app.use(bodyParser.json());
+// Parse URL-encoded bodies (as sent by HTML forms)
+app.use(express.urlencoded());
+
+// Parse JSON bodies (as sent by API clients)
+app.use(express.json());
 
 app.use('/', routes);
 

@@ -1,6 +1,7 @@
 npm-debug.log
 Dockerfile
 .dockerignore
+uploads/
 
 # dotenv environment variables file
 .env
