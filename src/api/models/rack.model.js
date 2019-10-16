@@ -2,32 +2,19 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 /**
- * Look Types
+ * Rack Types
  */
 const types = ['for_boys', 'for_girls'];
 
 /**
- * Look Schema
+ * Rack Schema
  * @private
  */
-const lookSchema = new Schema({
+const rackSchema = new Schema({
     name: {
         type: String,
         maxlength: 128,
         required: true,
-        trim: true,
-    },
-    ingredients: {
-        type: Array,
-        required: true,
-        default : [],
-    },
-    description: {
-        type: String,
-        trim: true,
-    },
-    recipe: {
-        type: String,
         trim: true,
     },
     type: {
@@ -35,9 +22,10 @@ const lookSchema = new Schema({
         enum: types,
         default: 'for_boys',
     },
-    picture: {
-        type: String,
-        trim: true,
+    items: {
+        type: Array,
+        required: true,
+        default : [],
     },
 }, {
     timestamps: true,
@@ -46,10 +34,10 @@ const lookSchema = new Schema({
 /**
  * Methods
  */
-lookSchema.method({
+rackSchema.method({
     transform() {
         const transformed = {};
-        const fields = ['id', 'name', 'ingredients', 'description', 'recipe', 'type', 'picture', 'createdAt'];
+        const fields = ['id', 'name', 'type', 'items', 'createdAt'];
 
         fields.forEach((field) => {
             transformed[field] = this[field];
@@ -62,13 +50,13 @@ lookSchema.method({
 /**
  * Statics
  */
-lookSchema.statics = {
+rackSchema.statics = {
 
     /**
-     * List look in descending order of 'createdAt' timestamp.
+     * List rack in descending order of 'createdAt' timestamp.
      *
-     * @param {number} skip - Number of looks to be skipped.
-     * @returns {Promise<Look[]>}
+     * @param {number} skip - Number of racks to be skipped.
+     * @returns {Promise<Rack[]>}
      */
     list({
              page = 1, perPage = 30, type = 'for_boys',
@@ -82,6 +70,6 @@ lookSchema.statics = {
 };
 
 /**
- * @typedef Look
+ * @typedef Rack
  */
-module.exports = mongoose.model('Look', lookSchema);
+module.exports = mongoose.model('Rack', rackSchema);

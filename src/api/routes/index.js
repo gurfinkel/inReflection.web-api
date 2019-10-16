@@ -11,5 +11,6 @@ router.get('/health', function (req, res) {
 
 router.use('/garments', require('./garment.routes'));
 router.use('/looks', require('./look.routes'));
+router.use('/racks', require('./rack.routes'));
 
 module.exports = router;
