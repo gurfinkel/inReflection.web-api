@@ -2,12 +2,9 @@ version: '3'
 
 services:
   nodejs:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: nodejs
+    image: flatorez/inreflection-web-api
     container_name: nodejs
-    restart: unless-stopped
+    restart: always
     env_file: .env
     environment:
       - MONGO_USERNAME=$MONGO_USERNAME
@@ -17,17 +14,13 @@ services:
       - MONGO_DB=$MONGO_DB
     ports:
       - "3000:3000"
-    volumes:
-      - .:/home/node/web-api
     networks:
       - app-network
-    command: ./wait-for.sh db:27017 -- /home/node/web-api/node_modules/.bin/nodemon src/index.js
 
   db:
     image: mongo:4.1.8-xenial
     container_name: db
-    restart: unless-stopped
-    env_file: .env
+    restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
       - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
