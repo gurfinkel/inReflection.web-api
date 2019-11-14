@@ -55,7 +55,13 @@ spec:
         name: nodejs
         ports:
         - containerPort: 3000
-        resources: {}
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "96Mi"
+          limits:
+            cpu: "500m"
+            memory: "192Mi"
       initContainers:
         - name: init-db
           image: busybox
