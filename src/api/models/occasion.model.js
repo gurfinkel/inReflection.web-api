@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const httpStatus = require('http-status');
+const APIError = require('../utils/APIError');
 
 /**
  * Occasion Types
@@ -34,7 +36,7 @@ const occasionSchema = new Schema({
 /**
  * Methods
  */
-rackSchema.method({
+occasionSchema.method({
     transform() {
         const transformed = {};
         const fields = ['id', 'name', 'type', 'items', 'createdAt'];
@@ -51,7 +53,31 @@ rackSchema.method({
  * Statics
  */
 occasionSchema.statics = {
-    
+    /**
+     * Get occasion
+     *
+     * @param {ObjectId} id - The objectId of occasion.
+     * @returns {Promise<Occasion, APIError>}
+     */
+    async get(id) {
+        try {
+            let occasion;
+            
+            if (mongoose.Types.ObjectId.isValid(id)) {
+                occasion = await this.findById(id).exec();
+            }
+            if (occasion) {
+                return occasion;
+            }
+            
+            throw new APIError({
+                message: 'Occasion does not exist',
+                status: httpStatus.NOT_FOUND,
+            });
+        } catch (error) {
+            throw error;
+        }
+    },
     /**
      * List occasion in descending order of 'createdAt' timestamp.
      *
@@ -70,6 +96,6 @@ occasionSchema.statics = {
 };
 
 /**
- * @typedef Rack
+ * @typedef Occasion
  */
 module.exports = mongoose.model('Occasion', occasionSchema);
