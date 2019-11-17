@@ -65,3 +65,6 @@ typings/
 # OS X
 .DS_Store
 .idea
+
+# Secrets
+kubernetes/secret.yaml
