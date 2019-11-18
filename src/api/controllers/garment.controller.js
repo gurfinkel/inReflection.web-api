@@ -31,3 +31,52 @@ exports.list = async (req, res, next) => {
         next(error);
     }
 };
+
+/**
+ * Get garment
+ * @public
+ */
+exports.get = async (req, res, next, id) => {
+    try {
+        const item = await Garment.get(id);
+        
+        res.json(item.transform());
+    } catch (error) {
+        return next(error);
+    }
+};
+
+/**
+ * Delete garment
+ * @public
+ */
+exports.remove = (req, res, next, id) => {
+    Garment.findOneAndDelete(id, { useFindAndModify: false, })
+        .then(() => res.status(httpStatus.NO_CONTENT).end())
+        .catch(e => next(e));
+};
+
+/**
+ * Replace existing garment
+ * @public
+ */
+exports.replace = async (req, res, next, id) => {
+    try {
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * Update existing garment
+ * @public
+ */
+exports.update = async (req, res, next, id) => {
+    try {
+        Garment.findOneAndUpdate({ _id: id, }, req.body, { new: true, useFindAndModify: false, })
+            .then(savedGarment => res.json(savedGarment.transform()))
+            .catch(e => next(e));
+    } catch (error) {
+        return next(error);
+    }
+};

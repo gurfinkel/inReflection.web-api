@@ -50,7 +50,31 @@ garmentSchema.method({
  * Statics
  */
 garmentSchema.statics = {
-
+    /**
+     * Get garment
+     *
+     * @param {ObjectId} id - The objectId of garment.
+     * @returns {Promise<Garment, APIError>}
+     */
+    async get(id) {
+        try {
+            let garment;
+            
+            if (mongoose.Types.ObjectId.isValid(id)) {
+                garment = await this.findById(id).exec();
+            }
+            if (garment) {
+                return garment;
+            }
+            
+            throw new APIError({
+                message: 'Garment does not exist',
+                status: httpStatus.NOT_FOUND,
+            });
+        } catch (error) {
+            throw error;
+        }
+    },
     /**
      * List garment in descending order of 'createdAt' timestamp.
      *

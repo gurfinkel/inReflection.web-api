@@ -31,3 +31,52 @@ exports.list = async (req, res, next) => {
         next(error);
     }
 };
+
+/**
+ * Get look
+ * @public
+ */
+exports.get = async (req, res, next, id) => {
+    try {
+        const item = await Look.get(id);
+        
+        res.json(item.transform());
+    } catch (error) {
+        return next(error);
+    }
+};
+
+/**
+ * Delete look
+ * @public
+ */
+exports.remove = (req, res, next, id) => {
+    Look.findOneAndDelete(id, { useFindAndModify: false, })
+        .then(() => res.status(httpStatus.NO_CONTENT).end())
+        .catch(e => next(e));
+};
+
+/**
+ * Replace existing look
+ * @public
+ */
+exports.replace = async (req, res, next, id) => {
+    try {
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * Update existing look
+ * @public
+ */
+exports.update = async (req, res, next, id) => {
+    try {
+        Look.findOneAndUpdate({ _id: id, }, req.body, { new: true, useFindAndModify: false, })
+            .then(savedLook => res.json(savedLook.transform()))
+            .catch(e => next(e));
+    } catch (error) {
+        return next(error);
+    }
+};

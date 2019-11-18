@@ -63,7 +63,31 @@ lookSchema.method({
  * Statics
  */
 lookSchema.statics = {
-
+    /**
+     * Get look
+     *
+     * @param {ObjectId} id - The objectId of look.
+     * @returns {Promise<Look, APIError>}
+     */
+    async get(id) {
+        try {
+            let look;
+            
+            if (mongoose.Types.ObjectId.isValid(id)) {
+                look = await this.findById(id).exec();
+            }
+            if (look) {
+                return look;
+            }
+            
+            throw new APIError({
+                message: 'Look does not exist',
+                status: httpStatus.NOT_FOUND,
+            });
+        } catch (error) {
+            throw error;
+        }
+    },
     /**
      * List look in descending order of 'createdAt' timestamp.
      *
