@@ -51,7 +51,31 @@ rackSchema.method({
  * Statics
  */
 rackSchema.statics = {
+    /**
+     * Get rack
+     *
+     * @param {ObjectId} id - The objectId of rack.
+     * @returns {Promise<Rack, APIError>}
+     */
+    async get(id) {
+        try {
+            let rack;
 
+            if (mongoose.Types.ObjectId.isValid(id)) {
+                rack = await this.findById(id).exec();
+            }
+            if (rack) {
+                return rack;
+            }
+
+            throw new APIError({
+                message: 'Rack does not exist',
+                status: httpStatus.NOT_FOUND,
+            });
+        } catch (error) {
+            throw error;
+        }
+    },
     /**
      * List rack in descending order of 'createdAt' timestamp.
      *
