@@ -9,7 +9,7 @@ metadata:
     io.kompose.service: db
   name: db
 spec:
-  replicas: 1
+  replicas: 3
   strategy:
     type: Recreate
   template:
@@ -36,6 +36,9 @@ spec:
           requests:
             cpu: "250m"
             memory: "512Mi"
+          limits:
+            cpu: "500m"
+            memory: "1024Mi"
         volumeMounts:
         - mountPath: /data/db
           name: dbdata
