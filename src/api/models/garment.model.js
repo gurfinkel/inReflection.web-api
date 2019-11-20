@@ -82,7 +82,7 @@ garmentSchema.statics = {
      * @returns {Promise<Garment[]>}
      */
     list({
-             page = 1, perPage = 30, type = 'for_boys',
+             page = 1, perPage = 100, type = 'for_boys',
          }) {
         return this.find({ type: type })
             .sort({ createdAt: -1 })

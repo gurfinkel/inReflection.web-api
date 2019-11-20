@@ -73,6 +73,7 @@ exports.replace = async (req, res, next, id) => {
  */
 exports.update = async (req, res, next, id) => {
     try {
+        req.body.picture = fs.readFileSync(req.file.path, "Base64");
         Look.findOneAndUpdate({ _id: id, }, req.body, { new: true, useFindAndModify: false, })
             .then(savedLook => res.json(savedLook.transform()))
             .catch(e => next(e));

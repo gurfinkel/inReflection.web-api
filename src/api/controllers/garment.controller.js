@@ -73,6 +73,7 @@ exports.replace = async (req, res, next, id) => {
  */
 exports.update = async (req, res, next, id) => {
     try {
+        req.body.picture = fs.readFileSync(req.file.path, "Base64");
         Garment.findOneAndUpdate({ _id: id, }, req.body, { new: true, useFindAndModify: false, })
             .then(savedGarment => res.json(savedGarment.transform()))
             .catch(e => next(e));

@@ -20,7 +20,7 @@ router.route('/:itemId')
     .delete((req, res, next) => {
         controller.remove(req, res, next, req.params.itemId);
     })
-    .patch((req, res, next) => {
+    .patch(upload.single('picture'), (req, res, next) => {
         controller.update(req, res, next, req.params.itemId);
     })
     .put((req, res, next) => {
