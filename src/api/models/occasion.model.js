@@ -79,7 +79,7 @@ occasionSchema.statics = {
         }
     },
     /**
-     * List occasion in descending order of 'createdAt' timestamp.
+     * List of occasions in descending order of 'createdAt' timestamp.
      *
      * @param {number} skip - Number of occasions to be skipped.
      * @returns {Promise<Occasion[]>}
@@ -90,7 +90,7 @@ occasionSchema.statics = {
         return this.find({ type: type })
             .sort({ createdAt: -1 })
             .skip(perPage * (page - 1))
-            .limit(perPage)
+            .limit(+perPage)
             .exec();
     },
 };

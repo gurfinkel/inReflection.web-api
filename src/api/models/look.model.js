@@ -99,7 +99,7 @@ lookSchema.statics = {
          }) {
         return this.find({ type: type })
             .skip(perPage * (page - 1))
-            .limit(perPage)
+            .limit(+perPage)
             .exec();
     },
 };

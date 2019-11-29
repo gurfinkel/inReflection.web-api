@@ -77,7 +77,7 @@ rackSchema.statics = {
         }
     },
     /**
-     * List rack in descending order of 'createdAt' timestamp.
+     * List of racks in descending order of 'createdAt' timestamp.
      *
      * @param {number} skip - Number of racks to be skipped.
      * @returns {Promise<Rack[]>}
@@ -88,7 +88,7 @@ rackSchema.statics = {
         return this.find({ type: type })
             .sort({ createdAt: -1 })
             .skip(perPage * (page - 1))
-            .limit(perPage)
+            .limit(+perPage)
             .exec();
     },
 };
