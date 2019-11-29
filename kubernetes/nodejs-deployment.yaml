@@ -53,7 +53,7 @@ spec:
               key: NODE_PORT
               name: nodejs-env
         name: nodejs
-        image: flatorez/inreflection-web-api:1.0.3
+        image: flatorez/inreflection-web-api:1.0.4
         imagePullPolicy: "Always"
         ports:
         - containerPort: 3000

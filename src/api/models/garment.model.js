@@ -76,7 +76,7 @@ garmentSchema.statics = {
         }
     },
     /**
-     * List garment in descending order of 'createdAt' timestamp.
+     * List of garments.
      *
      * @param {number} skip - Number of garments to be skipped.
      * @returns {Promise<Garment[]>}
@@ -85,7 +85,6 @@ garmentSchema.statics = {
              page = 1, perPage = 100, type = 'for_boys',
          }) {
         return this.find({ type: type })
-            .sort({ createdAt: -1 })
             .skip(perPage * (page - 1))
             .limit(perPage)
             .exec();

@@ -89,7 +89,7 @@ lookSchema.statics = {
         }
     },
     /**
-     * List look in descending order of 'createdAt' timestamp.
+     * List of looks.
      *
      * @param {number} skip - Number of looks to be skipped.
      * @returns {Promise<Look[]>}
@@ -98,7 +98,6 @@ lookSchema.statics = {
              page = 1, perPage = 100, type = 'for_boys',
          }) {
         return this.find({ type: type })
-            .sort({ createdAt: -1 })
             .skip(perPage * (page - 1))
             .limit(perPage)
             .exec();
