@@ -1,12 +1,12 @@
 version: '3'
 
 services:
-  nodejs:
+  server:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: server/Dockerfile
     image: nodejs
-    container_name: nodejs
+    container_name: server
     restart: unless-stopped
     env_file: .env
     environment:
@@ -18,10 +18,10 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - .:/home/node/web-api
+      - ./server:/home/node/looks-api
     networks:
       - app-network
-    command: ./wait-for.sh db:27017 -- /home/node/web-api/node_modules/.bin/nodemon src/index.js
+    command: ./wait-for.sh db:27017 -- /home/node/looks-api/node_modules/.bin/nodemon src/index.js
 
   db:
     image: mongo:4.1.8-xenial
