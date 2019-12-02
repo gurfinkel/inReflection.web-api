@@ -5,7 +5,7 @@ const routes = require('./api/routes');
 
 const app = express();
 
-const port = process.env.NODE_PORT || 3000;
+const port = process.env.SERVER_PORT || 3000;
 
 // Parse URL-encoded bodies (as sent by HTML forms)
 app.use(express.urlencoded());
