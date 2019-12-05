@@ -24,18 +24,17 @@ export default class ItemList extends Component {
 
     render() {
         const { items } = this.state;
+        const listOfItems = items ? items.map((item) => {
+            return (
+                <li key={ item.id } className="list-group-item">
+                    { item.name }
+                </li>
+            );
+        }) : null;
 
         return (
             <ul className="item-list list-group">
-                <li className="list-group-item">
-                    Luke Skywalker
-                </li>
-                <li className="list-group-item">
-                    Darth Vader
-                </li>
-                <li className="list-group-item">
-                    R2-D2
-                </li>
+                { listOfItems }
             </ul>
         );
     }
