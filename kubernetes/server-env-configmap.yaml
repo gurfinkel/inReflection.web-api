@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+data:
+  MONGO_DB: inreflection_db
+  MONGO_PASSWORD: cde321
+  MONGO_PORT: "27017"
+  MONGO_USERNAME: flatorez
+  SERVER_APP_PORT: "3000"
+  CLIENT_APP_PORT: "80"
+  SERVER_ENV: development
+  CLIENT_ENV: development
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: server-env
+  name: server-env

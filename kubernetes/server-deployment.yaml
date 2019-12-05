@@ -6,8 +6,8 @@ metadata:
     kompose.version: 1.18.0 ()
   creationTimestamp: null
   labels:
-    io.kompose.service: nodejs
-  name: nodejs
+    io.kompose.service: server
+  name: server
 spec:
   replicas: 1
   strategy: {}
@@ -15,16 +15,15 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        io.kompose.service: nodejs
+        io.kompose.service: server
     spec:
-      terminationGracePeriodSeconds: 120
       containers:
       - env:
         - name: MONGO_DB
           valueFrom:
             configMapKeyRef:
               key: MONGO_DB
-              name: nodejs-env
+              name: server-env
         - name: MONGO_HOSTNAME
           value: db
         - name: MONGO_PASSWORD
@@ -36,24 +35,24 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: MONGO_PORT
-              name: nodejs-env
+              name: server-env
         - name: MONGO_USERNAME
           valueFrom:
             secretKeyRef:
               name: mongo-secret
               key: MONGO_USERNAME
-        - name: NODE_ENV
+        - name: SERVER_ENV
           valueFrom:
             configMapKeyRef:
-              key: NODE_ENV
-              name: nodejs-env
-        - name: NODE_PORT
+              key: SERVER_ENV
+              name: server-env
+        - name: SERVER_APP_PORT
           valueFrom:
             configMapKeyRef:
-              key: NODE_PORT
-              name: nodejs-env
-        name: nodejs
-        image: flatorez/inreflection-web-api:1.0.5
+              key: SERVER_APP_PORT
+              name: server-env
+        name: server
+        image: flatorez/inreflection-looks-api:latest
         imagePullPolicy: "Always"
         ports:
         - containerPort: 3000
@@ -66,14 +65,14 @@ spec:
             memory: "1024Mi"
         readinessProbe:
           httpGet:
-            path: /ready
+            path: /api/ready
             port: 3000
             scheme: HTTP
           initialDelaySeconds: 10
           periodSeconds: 30
         livenessProbe:
           httpGet:
-            path: /health
+            path: /api/health
             port: 3000
             scheme: HTTP
           initialDelaySeconds: 10

@@ -12,13 +12,8 @@ services:
     image: nodejs
     container_name: client
     restart: unless-stopped
-    env_file: .env
-    environment:
-      - CLIENT_APP_PORT=$CLIENT_APP_PORT
-    expose:
-      - ${CLIENT_APP_PORT}
     ports:
-      - ${CLIENT_APP_PORT}:${CLIENT_APP_PORT}
+      - "80:8080"
     volumes:
       - ./client:/home/node/looks-www
     networks:
@@ -39,21 +34,18 @@ services:
     restart: unless-stopped
     env_file: .env
     environment:
-      - SERVER_APP_PORT=$SERVER_APP_PORT
       - MONGO_USERNAME=$MONGO_USERNAME
       - MONGO_PASSWORD=$MONGO_PASSWORD
       - MONGO_HOSTNAME=db
       - MONGO_PORT=$MONGO_PORT
       - MONGO_DB=$MONGO_DB
-    expose:
-      - ${SERVER_APP_PORT}
     ports:
-      - ${SERVER_APP_PORT}:${SERVER_APP_PORT}
+      - "3000:3000"
     volumes:
       - ./server:/home/node/looks-api
     networks:
       - app-network
-    command: /home/node/looks-api/wait-for.sh db:${MONGO_PORT} -- /home/node/looks-api/node_modules/.bin/nodemon /home/node/looks-api/src/index.js
+    command: /home/node/looks-api/wait-for.sh db:27017 -- /home/node/looks-api/node_modules/.bin/nodemon /home/node/looks-api/src/index.js
 
 ##############################
 #    Setup db container
