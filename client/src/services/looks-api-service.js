@@ -1,6 +1,6 @@
 export default class LooksApiService {
     
-    _apiBase = 'http://server:3000/api';
+    _apiBase = 'http://10.7.244.84:3000/api';
     
     async getResource(url) {
         const res = await fetch(`${this._apiBase}${url}`);
