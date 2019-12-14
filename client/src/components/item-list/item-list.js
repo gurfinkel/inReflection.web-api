@@ -13,8 +13,16 @@ export default class ItemList extends Component {
     };
 
     componentDidMount() {
+        // this.looksApiService
+        //     .getAllGarments()
+        //     .then((items) => {
+        //         this.setState({
+        //             items,
+        //         });
+        //     });
+    
         this.looksApiService
-            .getAllGarments()
+            .getAllLooks()
             .then((items) => {
                 this.setState({
                     items,
@@ -27,7 +35,7 @@ export default class ItemList extends Component {
         const listOfItems = items ? items.map((item) => {
             return (
                 <li key={ item.id } className="list-group-item">
-                    { item.name }
+                    { item.id } - { item.name }
                 </li>
             );
         }) : null;

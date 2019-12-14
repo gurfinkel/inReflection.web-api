@@ -16,7 +16,31 @@ export default class LooksApiService {
         return await this.getResource(`/garments/list`);
     }
     
-    getGarment(id) {
-        return this.getResource(`/garments/${id}/`);
+    async getGarment(id) {
+        return await this.getResource(`/garments/${id}/`);
+    }
+    
+    async getAllRacks() {
+        return await this.getResource(`/racks/list`);
+    }
+    
+    async getRack(id) {
+        return await this.getResource(`/racks/${id}/`);
+    }
+    
+    async getAllLooks() {
+        return await this.getResource(`/looks/list`);
+    }
+    
+    async getLook(id) {
+        return await this.getResource(`/looks/${id}/`);
+    }
+    
+    async getAllOccasions() {
+        return await this.getResource(`/occasions/list`);
+    }
+    
+    async getOccasion(id) {
+        return await this.getResource(`/occasions/${id}/`);
     }
 }
